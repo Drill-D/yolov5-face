@@ -16,9 +16,9 @@ import torch
 import torchvision
 import yaml
 
-from utils.google_utils import gsutil_getsize
-from utils.metrics import fitness
-from utils.torch_utils import init_torch_seeds
+from CV_Face_Detection.libs.yolov5_face_detection.utils.google_utils import gsutil_getsize
+from CV_Face_Detection.libs.yolov5_face_detection.utils.metrics import fitness
+from CV_Face_Detection.libs.yolov5_face_detection.utils.torch_utils import init_torch_seeds
 
 # Settings
 torch.set_printoptions(linewidth=320, precision=5, profile='long')

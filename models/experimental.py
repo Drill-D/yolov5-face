@@ -4,8 +4,8 @@ import numpy as np
 import torch
 import torch.nn as nn
 
-from models.common import Conv, DWConv
-from utils.google_utils import attempt_download
+from CV_Face_Detection.libs.yolov5_face_detection.models.common import Conv, DWConv
+from CV_Face_Detection.libs.yolov5_face_detection.utils.google_utils import attempt_download
 
 
 class CrossConv(nn.Module):
@@ -112,6 +112,14 @@ class Ensemble(nn.ModuleList):
 
 def attempt_load(weights, map_location=None):
     # Loads an ensemble of models weights=[a,b,c] or a single model weights=[a] or weights=a
+    import os, sys
+    sys.path.insert(0, os.path.join(os.path.dirname(__file__), "../"))
+    # TODO - we changed these relative positioning since unpickling the model failed
+    # look at this stackoverflow https://stackoverflow.com/questions/13398462/unpickling-python-objects-with-a-changed-module-path/13405732
+    from .. import models  # imports WrapperPackage/packageA
+    import sys
+    sys.modules['models'] = models  # creates a packageA entry in sys.modules
+
     model = Ensemble()
     for w in weights if isinstance(weights, list) else [weights]:
         attempt_download(w)
